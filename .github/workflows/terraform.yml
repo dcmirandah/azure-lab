@@ -7,10 +7,10 @@ on:
       part:
         description: 'Which part to execute'
         required: true
-        default: 'tg-webapp'
+        default: 'tf-webapp'
         type: choice
         options:
-          - tg-webapp
+          - tf-webapp
       step:
         description: 'Which step to run (plan, apply, destroy)'
         required: true

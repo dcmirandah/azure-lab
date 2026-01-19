@@ -7,10 +7,15 @@ on:
       part:
         description: 'Which part to execute'
         required: true
-        default: 'tf-webapp'
+        default: 'tg-webapp'
         type: choice
         options:
-          - tf-webapp
+          - tg-webapp
+      app:
+        description: 'App to execute'
+        required: true
+        default: 'app'
+        type: string
       step:
         description: 'Which step to run (plan, apply, destroy)'
         required: true
@@ -37,14 +42,7 @@ jobs:
           chmod +x terragrunt
           sudo mv terragrunt /usr/local/bin/terragrunt
       - name: Run selected Terragrunt step
-        working-directory: ${{ github.event.inputs.part }}/apps
+        working-directory: ${{ github.event.inputs.part }}/${{ github.event.inputs.app }}
         run: |
-          if [ "${{ github.event.inputs.step }}" = "plan" ]; then
-            terragrunt plan
-          elif [ "${{ github.event.inputs.step }}" = "apply" ]; then
-            terragrunt apply -auto-approve
-          elif [ "${{ github.event.inputs.step }}" = "destroy" ]; then
-            terragrunt destroy -auto-approve
-          else
-            echo "Unknown step: ${{ github.event.inputs.step }}" && exit 1
-          fi
+          chmod +x ../../.github/workflows/scripts/terragrunt.sh
+          ../../.github/workflows/scripts/terragrunt.sh ${{ github.event.inputs.step }} ${{ github.event.inputs.part }}

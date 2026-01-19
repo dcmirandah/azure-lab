@@ -3,7 +3,7 @@
 # Configuration
 source ../../secrets/LAB_CREDENTIALS.env
 
-# Usage: ./terraform.sh [plan|apply|destroy] [part]
+# Usage: ./terragrunt.sh [plan|apply|destroy] [part]
 ACTION=${1:-plan}
 PART=${2:-tg-webapp}
 # Local usage: ➜ ../../.github/workflows/scripts/terragrunt.sh [plan|apply|destroy]
