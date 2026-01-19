@@ -3,12 +3,13 @@
 # Configuration
 source ../secrets/LAB_CREDENTIALS.env
 
-# Usage: ./terraform.sh [plan|apply|destroy]
+# Usage: ./terraform.sh [plan|apply|destroy] [part]
 ACTION=${1:-plan}
-# Local usage: ../.github/workflows/scripts/terraform.sh [plan|apply|destroy]
+PART=${2:-tf-webapp}
+# Local usage: ../.github/workflows/scripts/terraform.sh [plan|apply|destroy] [part]
 
 # Initialize Terraform
-terraform init -backend-config=../secrets/backends/keyvault.json
+terraform init -backend-config=../secrets/backends/$PART.json
 
 # Terraform action
 case "$ACTION" in

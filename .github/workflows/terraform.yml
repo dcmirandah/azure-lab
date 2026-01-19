@@ -7,10 +7,10 @@ on:
       part:
         description: 'Which part to execute'
         required: true
-        default: 'keyvault'
+        default: 'tg-webapp'
         type: choice
         options:
-          - keyvault
+          - tg-webapp
       step:
         description: 'Which step to run (plan, apply, destroy)'
         required: true
@@ -41,4 +41,4 @@ jobs:
         working-directory: ${{ github.event.inputs.part }}
         run: |
           chmod +x ../.github/workflows/scripts/terraform.sh
-          ../.github/workflows/scripts/terraform.sh ${{ github.event.inputs.step }}
+          ../.github/workflows/scripts/terraform.sh ${{ github.event.inputs.step }} ${{ github.event.inputs.part }}
