@@ -1,0 +1,44 @@
+---
+name: Terraform
+
+on:
+  workflow_dispatch:
+    inputs:
+      part:
+        description: 'Which part to execute'
+        required: true
+        default: 'keyvault'
+        type: choice
+        options:
+          - keyvault
+      step:
+        description: 'Which step to run (plan, apply, destroy)'
+        required: true
+        default: 'plan'
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
+
+jobs:
+  terraform-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: latest
+      - name: Install tf-summarize
+        run: |
+          curl -sSL https://github.com/dineshba/tf-summarize/releases/latest/download/tf-summarize_linux_amd64.tar.gz -o tf-summarize.tar.gz
+          tar -xzf tf-summarize.tar.gz
+          chmod +x tf-summarize
+          sudo mv tf-summarize /usr/local/bin/tf-summarize
+      - name: Run selected step
+        working-directory: ${{ github.event.inputs.part }}
+        run: |
+          chmod +x ../.github/workflows/scripts/terraform.sh
+          ../.github/workflows/scripts/terraform.sh ${{ github.event.inputs.step }}
