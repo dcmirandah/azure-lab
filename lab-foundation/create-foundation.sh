@@ -20,7 +20,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 # Configuration
-source ../.secrets/LAB_FOUNDATION.env
+source ../secrets/LAB_FOUNDATION.env
 
 # Derived values
 RESOURCE_GROUP_NAME="rg-${FOUNDATION_NAME}-tfstate"

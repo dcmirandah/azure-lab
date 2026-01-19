@@ -13,10 +13,8 @@ override.tf.json
 terraform.rc
 .terraform.lock.hcl
 plan.out
+tfplan.out
 
 # Crash log files
 crash.log
 crash.*.log
-
-# Sensitive files
-.secrets
