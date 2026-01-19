@@ -1,0 +1,50 @@
+---
+name: Terragrunt
+
+on:
+  workflow_dispatch:
+    inputs:
+      part:
+        description: 'Which part to execute'
+        required: true
+        default: 'tf-webapp'
+        type: choice
+        options:
+          - tf-webapp
+      step:
+        description: 'Which step to run (plan, apply, destroy)'
+        required: true
+        default: 'plan'
+        type: choice
+        options:
+          - plan
+          - apply
+          - destroy
+
+jobs:
+  terraform-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: latest
+      - name: Install Terragrunt
+        run: |
+          curl -sLo terragrunt https://github.com/gruntwork-io/terragrunt/releases/latest/download/terragrunt_linux_amd64
+          chmod +x terragrunt
+          sudo mv terragrunt /usr/local/bin/terragrunt
+      - name: Run selected Terragrunt step
+        working-directory: ${{ github.event.inputs.part }}/apps
+        run: |
+          if [ "${{ github.event.inputs.step }}" = "plan" ]; then
+            terragrunt plan
+          elif [ "${{ github.event.inputs.step }}" = "apply" ]; then
+            terragrunt apply -auto-approve
+          elif [ "${{ github.event.inputs.step }}" = "destroy" ]; then
+            terragrunt destroy -auto-approve
+          else
+            echo "Unknown step: ${{ github.event.inputs.step }}" && exit 1
+          fi
