@@ -1,4 +1,4 @@
-# tg-webapp
+# Usage
 
 1. Configure secrets in `../secrets/LAB_CREDENTIALS.env`.
 2. Move to the apps dir `cd app/`.

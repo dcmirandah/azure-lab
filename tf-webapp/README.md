@@ -1,6 +1,4 @@
-# tf-webapps
-
-## Usage
+# Usage
 
 1. Configure secrets in `../secrets/LAB_CREDENTIALS.env` and backend in `../secrets/backends/backend.json`.
 2. Use the unified script for all Terraform actions: `../.github/workflows/scripts/terraform.sh [plan|apply|destroy]`
