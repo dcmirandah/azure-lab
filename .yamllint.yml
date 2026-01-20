@@ -1,0 +1,8 @@
+---
+# .yamllint configuration file
+
+extends: default
+rules:
+  line-length:
+    max: 200
+  truthy: false
