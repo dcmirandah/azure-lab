@@ -4,13 +4,19 @@ name: Terragrunt
 on:
   workflow_dispatch:
     inputs:
+      type:
+        description: 'Type'
+        required: true
+        default: 'public'
+        type: choice
+        options:
+          - public
+          - private
       part:
         description: 'Which part to execute'
         required: true
         default: 'tg-webapp'
-        type: choice
-        options:
-          - tg-webapp
+        type: string
       app:
         description: 'App to execute'
         required: true
@@ -42,7 +48,7 @@ jobs:
           chmod +x terragrunt
           sudo mv terragrunt /usr/local/bin/terragrunt
       - name: Run selected Terragrunt step
-        working-directory: ${{ github.event.inputs.part }}/${{ github.event.inputs.app }}
+        working-directory: projects/${{ github.event.inputs.type }}/${{ github.event.inputs.part }}/${{ github.event.inputs.app }}
         run: |
-          chmod +x ../../.github/workflows/scripts/terragrunt.sh
-          ../../.github/workflows/scripts/terragrunt.sh ${{ github.event.inputs.step }} ${{ github.event.inputs.part }}
+          chmod +x ../../../../.github/workflows/scripts/terragrunt.sh
+          ../../../../.github/workflows/scripts/terragrunt.sh ${{ github.event.inputs.step }} ${{ github.event.inputs.part }}

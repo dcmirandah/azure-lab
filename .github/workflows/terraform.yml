@@ -4,13 +4,19 @@ name: Terraform
 on:
   workflow_dispatch:
     inputs:
+      type:
+        description: 'Type'
+        required: true
+        default: 'public'
+        type: choice
+        options:
+          - public
+          - private
       part:
         description: 'Which part to execute'
         required: true
         default: 'tf-webapp'
-        type: choice
-        options:
-          - tf-webapp
+        type: string
       step:
         description: 'Which step to run (plan, apply, destroy)'
         required: true
@@ -38,7 +44,7 @@ jobs:
           chmod +x tf-summarize
           sudo mv tf-summarize /usr/local/bin/tf-summarize
       - name: Run selected step
-        working-directory: ${{ github.event.inputs.part }}
+        working-directory: projects/${{ github.event.inputs.type }}/${{ github.event.inputs.part }}
         run: |
-          chmod +x ../.github/workflows/scripts/terraform.sh
-          ../.github/workflows/scripts/terraform.sh ${{ github.event.inputs.step }} ${{ github.event.inputs.part }}
+          chmod +x ../../../.github/workflows/scripts/terraform.sh
+          ../../../.github/workflows/scripts/terraform.sh ${{ github.event.inputs.step }} ${{ github.event.inputs.part }}

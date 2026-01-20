@@ -1,12 +1,12 @@
 # !/bin/bash
 
 # Configuration
-source ../../secrets/LAB_CREDENTIALS.env
+source ../../../../secrets/LAB_CREDENTIALS.env
 
 # Usage: ./terragrunt.sh [plan|apply|destroy] [part]
 ACTION=${1:-plan}
 PART=${2:-tg-webapp}
-# Local usage: ➜ ../../.github/workflows/scripts/terragrunt.sh [plan|apply|destroy]
+# Local usage: ➜ ../../../../.github/workflows/scripts/terragrunt.sh [plan|apply|destroy]
 
 # Terragrunt action
 case "$ACTION" in

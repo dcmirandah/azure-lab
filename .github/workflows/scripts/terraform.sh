@@ -1,15 +1,15 @@
 # !/bin/bash
 
 # Configuration
-source ../secrets/LAB_CREDENTIALS.env
+source ../../../secrets/LAB_CREDENTIALS.env
 
 # Usage: ./terraform.sh [plan|apply|destroy] [part]
 ACTION=${1:-plan}
 PART=${2:-tf-webapp}
-# Local usage: ../.github/workflows/scripts/terraform.sh [plan|apply|destroy] [part]
+# Local usage: ../../../.github/workflows/scripts/terraform.sh [plan|apply|destroy] [part]
 
 # Initialize Terraform
-terraform init -backend-config=../secrets/backends/$PART.json
+terraform init -backend-config=../../../secrets/backends/$PART.json
 
 # Terraform action
 case "$ACTION" in
